@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-con
-        image: bhm99/todolist:backend11
+        image: app/backend:1
         ports:
         - containerPort: 5000
         resources:
