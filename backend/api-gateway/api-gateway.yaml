@@ -1,27 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-dep
+  name: api-gateway-dep
   labels:
-    app: frontend-dep
+    app: api-gateway-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: api-gateway
   template:
     metadata:
       labels:
-        app: frontend
+        app: api-gateway
     spec:
       containers:
-      - name: frontend-con
-        image: app/frontend:13
+      - name: api-gateway-con
+        image: app/api-gateway:7
         ports:
-        - containerPort: 80
-        env:
-        - name: REACT_APP_API_URL
-          value: http://api-gateway:3000/api
+        - containerPort: 3000
         resources:
           limits:
             cpu: 100m
@@ -31,10 +28,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: api-gateway
 spec:
   selector:
-    app: frontend
+    app: api-gateway
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 3000
+      targetPort: 3000

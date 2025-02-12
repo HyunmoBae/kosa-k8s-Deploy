@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
@@ -18,4 +17,3 @@ spec:
               name: frontend
               port:
                 number: 80
-

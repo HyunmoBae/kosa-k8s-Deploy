@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-dep
+  labels:
+    app: file-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file
+  template:
+    metadata:
+      labels:
+        app: file
+    spec:
+      containers:
+      - name: file-con
+        image: app/file:4
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        - name: MONGO_HOST
+          value: "db3.metanet2.shop"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_DB
+          value: "file"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASS
+          value: "password"
+        - name: UPLOAD_DIR
+          value: "/mnt/nfs/uploads"
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 50m
+        volumeMounts:
+        - mountPath: "/mnt/nfs/uploads"
+          name: nfs-vol
+      volumes:
+        - name: nfs-vol
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: file
+spec:
+  selector:
+    app: file
+  ports:
+    - port: 3000
+      targetPort: 3000

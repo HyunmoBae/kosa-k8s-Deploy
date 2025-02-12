@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-dep
+  labels:
+    app: todo-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+      - name: todo-con
+        image: app/todo:3
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        - name: MONGO_HOST
+          value: "db.metanet2.shop"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_DB
+          value: "todoapp"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASS
+          value: "password"
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 50m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo
+spec:
+  selector:
+    app: todo
+  ports:
+    - port: 3000
+      targetPort: 3000

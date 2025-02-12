@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: board-dep
+  labels:
+    app: board-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: board
+  template:
+    metadata:
+      labels:
+        app: board
+    spec:
+      containers:
+      - name: board-con
+        image: app/board:4
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        - name: MONGO_HOST
+          value: "db2.metanet2.shop"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_DB
+          value: "board"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASS
+          value: "password"
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 50m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: board
+spec:
+  selector:
+    app: board
+  ports:
+    - port: 3000
+      targetPort: 3000
