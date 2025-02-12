@@ -16,9 +16,16 @@ spec:
     spec:
       containers:
       - name: api-gateway-con
-        image: app/api-gateway:7
+        image: app/api-gateway:21
         ports:
         - containerPort: 3000
+        env:
+        - name: TODO_SERVICE
+          value: "http://todo:3000"
+        - name: BOARD_SERVICE
+          value: "http://board:3000"
+        - name: FILE_SERVICE
+          value: "http://file:3000"
         resources:
           limits:
             cpu: 100m

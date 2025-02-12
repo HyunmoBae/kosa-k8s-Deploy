@@ -2,10 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-ingress
-  namespace: default
+  namespace: admin
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
@@ -16,7 +17,20 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: argocdserver
+            name: argocd
             port:
               number: 80
-
+      - path: /monitoring(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: monitoring
+            port:
+              number: 80
+      - path: /prometheus(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: prometheus
+            port:
+              number: 80

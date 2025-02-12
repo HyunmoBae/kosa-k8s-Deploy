@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: todo-con
-        image: app/todo:3
+        image: app/todo:21
         ports:
         - containerPort: 3000
         env:
