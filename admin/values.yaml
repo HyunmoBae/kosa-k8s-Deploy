@@ -8,7 +8,7 @@ nameOverride: ""
 
 ## Override the deployment namespace
 ##
-namespaceOverride: ""
+namespaceOverride: "test"
 
 ## Provide a k8s version to auto dashboard import script example: kubeTargetVersionOverride: 1.26.6
 ##
@@ -1187,7 +1187,7 @@ grafana:
     hosts: []
 
     ## Path for grafana ingress
-    path: /
+    path: /monitoring
 
     ## TLS configuration for grafana Ingress
     ## Secret must be manually created in the namespace
