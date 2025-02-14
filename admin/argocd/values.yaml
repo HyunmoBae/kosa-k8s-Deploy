@@ -8,7 +8,7 @@ nameOverride: argocd
 fullnameOverride: ""
 # -- Override the namespace
 # @default -- `.Release.Namespace`
-namespaceOverride: "argocd"
+namespaceOverride: ""
 # -- Override the Kubernetes version, which is used to evaluate certain manifests
 kubeVersionOverride: ""
 # Override APIVersions
@@ -42,7 +42,7 @@ crds:
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: argocd.metanet2.shop
+  domain: argocd.example.com
 
   # -- Runtime class name for all components
   runtimeClassName: ""

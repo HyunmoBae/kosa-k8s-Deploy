@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: board-con
-        image: app/board:4
+        image: app/board:21
         ports:
         - containerPort: 3000
         env:

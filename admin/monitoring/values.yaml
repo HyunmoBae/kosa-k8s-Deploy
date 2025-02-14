@@ -8,7 +8,7 @@ nameOverride: ""
 
 ## Override the deployment namespace
 ##
-namespaceOverride: "test"
+namespaceOverride: ""
 
 ## Provide a k8s version to auto dashboard import script example: kubeTargetVersionOverride: 1.26.6
 ##
@@ -1152,7 +1152,11 @@ grafana:
   defaultDashboardsEditable: true
 
   adminUser: admin
-  adminPassword: prom-operator
+  adminPassword: abc123
+
+  grafana.ini:
+  server:
+  root_url: "http://admin.metanet2.shop/monitoring"
 
   rbac:
     ## If true, Grafana PSPs will be created
@@ -1187,7 +1191,7 @@ grafana:
     hosts: []
 
     ## Path for grafana ingress
-    path: /monitoring
+    path: /
 
     ## TLS configuration for grafana Ingress
     ## Secret must be manually created in the namespace
